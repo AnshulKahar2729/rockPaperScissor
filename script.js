@@ -9,6 +9,7 @@
 const rockBtn = document.getElementById("rock-btn");
 const paperBtn = document.getElementById("paper-btn");
 const scissorBtn = document.getElementById("scissor-btn");
+const resetBtn = document.getElementById("reset-btn");
 const winCountText = document.getElementById("winCountText");
 const lossCountText = document.getElementById("lossCountText");
 const tieCountText = document.getElementById("tieCountText");
@@ -16,9 +17,12 @@ let youChoose = document.getElementById("youChoose");
 let compChoose = document.getElementById("compChoose");
 let result = document.getElementById("result");
 
-let winCount = 0;
-let lossCount = 0;
-let tieCount = 0;
+const score = {
+  wins : 0,
+  losses : 0,
+  ties : 0
+}
+
 let compSelect = "";
 
 function pickComputerMove() {
@@ -45,48 +49,48 @@ function playGame(playerMove) {
     youChoose.innerText = playerMove;
 
     if (compSelect === "ROCK") {
-      tieCount += 1;
-      tieCountText.innerText = tieCount;
+      score.ties+= 1;
+      tieCountText.innerText =score.ties
       result.innerText = "TIE";
     } else if (compSelect === "PAPER") {
-      lossCount += 1;
-      lossCountText.innerText = lossCount;
+      score.losses+= 1;
+      lossCountText.innerText =score.losses
       result.innerText = "YOU LOSS";
     } else if (compSelect === "SCISSOR") {
-      winCount += 1;
-      winCountText.innerText = winCount;
+      score.wins+= 1;
+      winCountText.innerText =score.wins
       result.innerText = "YOU WIN";
     }
   } else if (playerMove === "PAPER") {
     youChoose.innerText = playerMove;
 
     if (compSelect === "ROCK") {
-      winCount += 1;
-      winCountText.innerText = winCount;
+      score.wins+= 1;
+      winCountText.innerText =score.wins
       result.innerText = "YOU WIN";
     } else if (compSelect === "PAPER") {
-      tieCount += 1;
-      tieCountText.innerText = tieCount;
+      score.ties+= 1;
+      tieCountText.innerText =score.ties
       result.innerText = "TIE";
     } else if (compSelect === "SCISSOR") {
-      lossCount += 1;
-      lossCountText.innerText = lossCount;
+      score.losses+= 1;
+      lossCountText.innerText =score.losses
       result.innerText = "YOU LOSS";
     }
   } else if (playerMove === "SCISSOR") {
     youChoose.innerText = playerMove;
 
     if (compSelect === "ROCK") {
-      lossCount += 1;
-      lossCountText.innerText = lossCount;
+      score.losses+= 1;
+      lossCountText.innerText =score.losses
       result.innerText = "YOU LOSS";
     } else if (compSelect === "PAPER") {
-      winCount += 1;
-      winCountText.innerText = winCount;
+      score.wins+= 1;
+      winCountText.innerText =score.wins
       result.innerText = "YOU LOSS";
     } else if (compSelect === "SCISSOR") {
-      tieCount += 1;
-      tieCountText.innerText = tieCount;
+      score.ties+= 1;
+      tieCountText.innerText =score.ties
       result.innerText = "TIE";
     }
   }
@@ -106,3 +110,17 @@ scissorBtn.addEventListener("click", function () {
   pickComputerMove();
   playGame("SCISSOR");
 });
+
+resetBtn.addEventListener("click", () => {
+    score.wins = 0;
+    score.losses = 0;
+    score.ties = 0;
+
+    youChoose.innerText = "";
+    compChoose.innerText = "";
+    result.innerText = "";
+
+    winCountText.innerText = score.wins;
+    lossCountText.innerText = score.losses;
+    tieCountText.innerText = score.ties;
+})
